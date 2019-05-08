@@ -1045,7 +1045,7 @@ express-data-parser@^1.2.0:
   dependencies:
     formidable "^1.0.17"
 
-express-session@^1.14.2:
+express-session@^1.14.2, express-session@^1.16.1:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/express-session/-/express-session-1.16.1.tgz#251ff9776c59382301de6c8c33411af357ed439c"
   integrity sha512-pWvUL8Tl5jUy1MLH7DhgUlpoKeVPUTe+y6WQD9YhcN0C5qAhsh4a8feVjiUXo3TFhIy191YGZ4tewW9edbl2xQ==
