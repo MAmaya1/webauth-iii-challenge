@@ -1,7 +1,12 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken'); // import json web token
 
 const Users = require('../auth/auth-model');
+
+// Import Secrets
+
+const secrets = require('../config/secrets');
 
 // Register
 
@@ -33,7 +38,8 @@ router.post('/login', (req, res) => {
         .first()
         .then(user => {
             if (user && bcrypt.compareSync(password, user.password)) {
-                res.status(201).json({ message: `Welcome ${user.username}!` })
+                const token = generateToken(user); // generate token
+                res.status(201).json({ message: `Welcome ${user.username}!`, token })
             } else {
                 res.status(401).json({ errorMessage: 'Incorrect username and/or password.' })
             }
@@ -42,5 +48,16 @@ router.post('/login', (req, res) => {
             res.status(500).json({ error: err, message: 'Internal server error, could not log in.' })
         })
 })
+
+function generateToken(user) {
+    const payload = {
+        subject: user.id,
+        username: user.username
+    }
+    const options = {
+        expiresIn: '1hr'
+    }
+    return jwt.sign(payload, secrets.jwtSecret, options)
+}
 
 module.exports = router;

@@ -4,12 +4,12 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 
-const server = express();
-
 // Import Routers
 
 const usersRouter = require('../users/users-router');
 const authRouter = require('../auth/auth-router');
+
+const server = express();
 
 // Global Middleware
 
