@@ -24,4 +24,23 @@ router.post('/register', (req, res) => {
     }
 })
 
+// Login
+
+router.post('/login', (req, res) => {
+    let { username, password } = req.body;
+
+    Users.findUserBy({ username })
+        .first()
+        .then(user => {
+            if (user && bcrypt.compareSync(password, user.password)) {
+                res.status(201).json({ message: `Welcome ${user.username}!` })
+            } else {
+                res.status(401).json({ errorMessage: 'Incorrect username and/or password.' })
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ error: err, message: 'Internal server error, could not log in.' })
+        })
+})
+
 module.exports = router;
