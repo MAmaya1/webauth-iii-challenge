@@ -18,7 +18,7 @@ export const login = credentials => dispatch => {
             dispatch({ type: LOGIN_SUCCESS, payload: res.data })
         })
         .catch(err => {
-            dispatch({ type: LOGIN_FAILURE, payload: err})
+            dispatch({ type: LOGIN_FAILURE, payload: 'Invalid credentials'})
         })
 }
 
@@ -43,7 +43,7 @@ export const getUsers = () => dispatch => {
             .catch(err => {
                 dispatch({
                     type: GET_USERS_FAILURE,
-                    payload: err
+                    payload: 'Could not load users from database.'
                 })
             })
 }
@@ -64,6 +64,6 @@ export const addUser = credentials => dispatch => {
                 dispatch({ type: ADD_USER_SUCCESS, payload: res.data })
             })
             .catch(err => {
-                dispatch({ type: ADD_USER_FAILURE, payload: err })
+                dispatch({ type: ADD_USER_FAILURE, payload: 'A user with that username already exists.' })
             })
 }
