@@ -93,6 +93,10 @@ class RegistrationForm extends React.Component {
     addUser = event => {
         event.preventDefault();
         this.props.addUser(this.state.credentials)
+        this.setState({
+            username: '',
+            password: ''
+        })
     }
     
     render() {
