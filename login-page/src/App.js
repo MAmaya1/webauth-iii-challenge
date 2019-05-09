@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
-import UsersView from './views/users-view';
+import UsersView from './views/UsersView';
 
 function App() {
   return (
