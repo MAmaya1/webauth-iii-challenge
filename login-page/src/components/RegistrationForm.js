@@ -1,12 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { login } from '../actions';
-
-class Login extends React.Component {
+class RegistrationForm extends React.Component {
     state = {
-        credentials: {
+        credentials:  {
             username: '',
             password: ''
         }
@@ -20,19 +17,11 @@ class Login extends React.Component {
             }
         })
     }
-
-    login = event => {
-        event.preventDefault();
-        this.props.login(this.state.credentials)
-            .then(() => {
-                this.props.history.push('/protected')
-            })
-    }
-
+    
     render() {
         return (
-            <div className="login">
-                <h1>Log In</h1>
+            <div className="register">
+                <h2>Register Here</h2>
                 <form>
                     <input
                         type="text"
@@ -46,22 +35,12 @@ class Login extends React.Component {
                         value={this.state.password}
                         onChange={this.handleChange}
                     />
-                    {this.props.logInError && (<p>{this.props.logInError}</p>)}
-                    <button onClick={this.login}>
-                        {this.state.loggingIn ? ('Logging in...') : ('Login')}
-                    </button>
-                    <p>Not a registered user? <Link to="/register">Sign Up</Link></p>
+                    <button>Sign Up</button>
                 </form>
+                <Link exact to="/">Back to Login</Link>
             </div>
         )
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        loggingIn: state.loggingIn,
-        logInError: state.logInError
-    }
-}
-
-export default connect(mapStateToProps, {login})(Login);
+export default RegistrationForm;
