@@ -16,6 +16,11 @@ const LoginPage = styled.div`
     background: white;
     padding: 20px 30px;
     text-align: center;
+
+    h2 {
+        font-size: 2rem;
+    }
+
 `
 
 const LoginForm = styled.form`
@@ -55,7 +60,7 @@ const LoginForm = styled.form`
         color: red;
         position: absolute;
         text-align: center;
-        margin: 123px 299px;
+        margin: 123px 300px;
         font-size: 0.8rem;
     }
 `
@@ -90,7 +95,7 @@ class Login extends React.Component {
     render() {
         return (
             <LoginPage>
-                <h1>Log In</h1>
+                <h2>Log In</h2>
                 <LoginForm>
                     <input
                         type="text"
