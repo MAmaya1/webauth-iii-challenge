@@ -4,6 +4,75 @@ import { Link } from 'react-router-dom';
 
 import { addUser } from '../actions';
 
+import styled from 'styled-components';
+
+// Styled Components
+
+const RegisterPage = styled.div`
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    margin: 200px auto;
+    background: white;
+    padding: 20px 30px;
+    text-align: center;
+
+    h2 {
+        font-size: 2rem;
+    }
+
+`
+
+const RegisterForm = styled.form`
+    display: flex;
+    flex-direction: column;
+
+    input {
+        width: 40%;
+        margin: 5px auto;
+        padding: 5px;
+    }
+    
+    button {
+        height: 28px;
+        width: 100px;
+        background: white;
+        border: solid 1px grey;
+        cursor: pointer;
+        margin: 10px auto;
+
+        &:hover {
+            background: lightgrey;
+            transition: all 200ms ease;
+        }
+    }
+
+    a {
+        color: blue;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .err {
+        color: red;
+        position: absolute;
+        margin: 123px 240px;
+        font-size: 0.8rem;
+    }
+
+    .success {
+        color: red;
+        position: absolute;
+        margin: 123px 270px;
+        font-size: 0.8rem;
+    }
+`
+
+// Registration Form Component Constructor
+
 class RegistrationForm extends React.Component {
     state = {
         credentials:  {
@@ -28,9 +97,9 @@ class RegistrationForm extends React.Component {
     
     render() {
         return (
-            <div className="register">
+            <RegisterPage>
                 <h2>Register Here</h2>
-                <form>
+                <RegisterForm>
                     <input
                         type="text"
                         name="username"
@@ -43,14 +112,14 @@ class RegistrationForm extends React.Component {
                         value={this.state.password}
                         onChange={this.handleChange}
                     />
-                    {this.props.addUserFailure && (<p>{this.props.addUserFailure}</p>)}
                     <button onClick={this.addUser}>
                         {this.props.addingUser ? ('Adding user...') : ('Add User')}
                     </button>
-                </form>
-                {this.props.userAdded && (<p>New user added successfully!</p>)}
-                <Link to="/">Back to Login</Link>
-            </div>
+                    {this.props.addUserFailure && (<p className="err">{this.props.addUserFailure}</p>)}
+                    {this.props.userAdded && (<p className="success">New user added successfully!</p>)}
+                    <p>Back to <Link to="/">Login</Link></p>
+                </RegisterForm>
+            </RegisterPage>
         )
     }
 }
