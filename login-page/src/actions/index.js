@@ -47,3 +47,23 @@ export const getUsers = () => dispatch => {
                 })
             })
 }
+
+// Register New User Action Types
+
+export const ADD_USER_START = 'ADD_USER_START';
+export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
+export const ADD_USER_FAILURE = 'ADD_USER_FAILURE';
+
+// Register New User Action Types
+
+export const addUser = credentials => dispatch => {
+    dispatch({ type: ADD_USER_START });
+        axios
+            .post('http://localhost:5000/api/auth/register', credentials)
+            .then(res => {
+                dispatch({ type: ADD_USER_SUCCESS, payload: res.data })
+            })
+            .catch(err => {
+                dispatch({ type: ADD_USER_FAILURE, payload: err })
+            })
+}

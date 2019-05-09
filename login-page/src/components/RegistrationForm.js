@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { addUser } from '../actions';
 
 class RegistrationForm extends React.Component {
     state = {
@@ -16,6 +19,11 @@ class RegistrationForm extends React.Component {
                 [event.target.name]: event.target.value
             }
         })
+    }
+
+    addUser = event => {
+        event.preventDefault();
+        this.props.addUser(this.state.credentials)
     }
     
     render() {
@@ -35,12 +43,24 @@ class RegistrationForm extends React.Component {
                         value={this.state.password}
                         onChange={this.handleChange}
                     />
-                    <button>Sign Up</button>
+                    {this.props.addUserFailure && (<p>{this.props.addUserFailure}</p>)}
+                    <button onClick={this.addUser}>
+                        {this.props.addingUser ? ('Adding user...') : ('Add User')}
+                    </button>
                 </form>
-                <Link exact to="/">Back to Login</Link>
+                {this.props.userAdded && (<p>New user added successfully!</p>)}
+                <Link to="/">Back to Login</Link>
             </div>
         )
     }
 }
 
-export default RegistrationForm;
+const mapStateToProps = state => {
+    return {
+        addingUser: state.addingUser,
+        userAdded: state.userAdded,
+        addUserFailure: state.addUserFailure
+    }
+}
+
+export default connect(mapStateToProps, {addUser})(RegistrationForm);

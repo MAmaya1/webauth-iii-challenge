@@ -6,7 +6,10 @@ import {
     LOGIN_FAILURE,
     GET_USERS_START,
     GET_USERS_SUCCESS,
-    GET_USERS_FAILURE
+    GET_USERS_FAILURE,
+    ADD_USER_START,
+    ADD_USER_SUCCESS,
+    ADD_USER_FAILURE
 } from '../actions';
 
 // Set Initial State
@@ -17,7 +20,10 @@ const initialState = {
     logInError: null,
     users: [],
     loadingUsers: false,
-    loadingUsersError: null
+    loadingUsersError: null,
+    addingUser: false,
+    userAdded: false,
+    addUserFailure: null
 }
 
 function reducer(state = initialState, action) {
@@ -67,6 +73,31 @@ function reducer(state = initialState, action) {
                 loadingUsers: false,
                 loadingUsersError: action.payload
             }
+
+        case ADD_USER_START:
+            return {
+                ...state,
+                addingUser: true,
+                userAdded: false,
+                addUserFailure: null
+            }
+
+        case ADD_USER_SUCCESS:
+            return {
+                ...state,
+                addingUser: false,
+                userAdded: true,
+                addUserFailure: null
+            }
+
+        case ADD_USER_FAILURE:
+            return {
+                ...state,
+                addingUser: false,
+                userAdded: false,
+                addUserFailure: action.payload
+            }
+        
         default:
             return state;
     }
