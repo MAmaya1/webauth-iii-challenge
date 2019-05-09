@@ -2,9 +2,30 @@ import React from 'react';
 
 import User from './User';
 
+import styled from 'styled-components';
+
+// Styled Components
+
+const UsersListWrap = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 700px;
+    background: white;
+    margin: auto;
+    padding: 20px 30px;
+
+    @media (max-width: 500px) {
+        flex-direction: column;
+        justify-content: start;
+    }
+`
+
+// UsersList Component Constructor
+
 const UsersList = props => {
     return (
-        <div className="users-list">
+        <UsersListWrap>
             {props.users.map(user => (
                 <User
                     key={user.id}
@@ -12,7 +33,7 @@ const UsersList = props => {
                     password={user.password}
                 />
             ))}
-        </div>
+        </UsersListWrap>
     )
 }
 
