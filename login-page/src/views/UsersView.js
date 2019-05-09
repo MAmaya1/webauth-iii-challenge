@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { getUsers } from '../actions';
 
+import UsersHeader from '../components/UsersHeader';
 import UsersList from '../components/UsersList';
 
 class UsersView extends React.Component {
@@ -14,7 +15,7 @@ class UsersView extends React.Component {
     render() {
         return (
             <div className="users-view">
-                <h2>Users</h2>
+                <UsersHeader/>
                 {this.props.loadingUsers && (<p>Loading users...</p>)}
                 {this.props.users && (<UsersList users={this.props.users}/>)}
                 {this.props.loadingUsersError && (<p>{this.props.loadingUsersError}</p>)}
