@@ -26,6 +26,7 @@ const LoginPage = styled.div`
 const LoginForm = styled.form`
     display: flex;
     flex-direction: column;
+    height: 180px;
 
     input {
         width: 40%;
@@ -58,10 +59,12 @@ const LoginForm = styled.form`
 
     .err {
         color: red;
-        position: absolute;
-        text-align: center;
-        margin: 123px 300px;
         font-size: 0.8rem;
+        margin: 0;
+    }
+
+    .spacer {
+        height: 8px;
     }
 `
 
@@ -96,24 +99,32 @@ class Login extends React.Component {
         return (
             <LoginPage>
                 <h2>Log In</h2>
-                <LoginForm>
+                <LoginForm onSubmit={this.login}>
+                    <label htmlFor="username"/>
                     <input
+                        id="username"
                         type="text"
                         name="username"
-                        value={this.state.username}
+                        value={this.state.credentials.username}
+                        placeholder="username"
                         onChange={this.handleChange}
                     />
+                    <label htmlFor="password"/>
                     <input
+                        id="password"
                         type="password"
                         name="password"
-                        value={this.state.password}
+                        value={this.state.credentials.password}
+                        placeholder="password"
                         onChange={this.handleChange}
                     />
-                    {this.props.logInError && (<p className="err">{this.props.logInError}</p>)}
-                    <button onClick={this.login}>
-                        {this.state.loggingIn ? ('Logging in...') : ('Login')}
-                    </button>
-                    <p>Not a registered user? <Link to="/register">Sign Up</Link></p>
+                    <div>
+                        <button type="submit">
+                            {this.state.loggingIn ? ('Logging in...') : ('Login')}
+                        </button>
+                        <div className="spacer">{this.props.logInError && (<p className="err">{this.props.logInError}</p>)}</div>
+                        <p>Not a registered user? <Link to="/register">Sign Up</Link></p>
+                    </div>
                 </LoginForm>
             </LoginPage>
         )

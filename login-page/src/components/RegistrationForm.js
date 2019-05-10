@@ -26,6 +26,7 @@ const RegisterPage = styled.div`
 const RegisterForm = styled.form`
     display: flex;
     flex-direction: column;
+    height: 180px;
 
     input {
         width: 40%;
@@ -58,16 +59,18 @@ const RegisterForm = styled.form`
 
     .err {
         color: red;
-        position: absolute;
-        margin: 123px 240px;
         font-size: 0.8rem;
+        margin: 0;
     }
 
     .success {
         color: red;
-        position: absolute;
-        margin: 123px 270px;
         font-size: 0.8rem;
+        margin: 0;
+    }
+
+    .spacer {
+        height: 4px;
     }
 `
 
@@ -94,8 +97,10 @@ class RegistrationForm extends React.Component {
         event.preventDefault();
         this.props.addUser(this.state.credentials)
         this.setState({
-            username: '',
-            password: ''
+            credentials: {
+                username: '',
+                password: ''
+            }
         })
     }
     
@@ -103,25 +108,33 @@ class RegistrationForm extends React.Component {
         return (
             <RegisterPage>
                 <h2>Register Here</h2>
-                <RegisterForm>
+                <RegisterForm onSubmit={this.addUser}>
+                    <label htmlFor="username"/>
                     <input
+                        id="username"
                         type="text"
                         name="username"
-                        value={this.state.username}
+                        value={this.state.credentials.username}
+                        placeholder="username"
                         onChange={this.handleChange}
                     />
+                    <label htmlFor="password"/>
                     <input
+                        id="password"
                         type="password"
                         name="password"
-                        value={this.state.password}
+                        value={this.state.credentials.password}
+                        placeholder="password"
                         onChange={this.handleChange}
                     />
-                    <button onClick={this.addUser}>
-                        {this.props.addingUser ? ('Adding user...') : ('Add User')}
-                    </button>
-                    {this.props.addUserFailure && (<p className="err">{this.props.addUserFailure}</p>)}
-                    {this.props.userAdded && (<p className="success">New user added successfully!</p>)}
-                    <p>Back to <Link to="/">Login</Link></p>
+                    <div>
+                        <button type="submit">
+                            {this.props.addingUser ? ('Adding user...') : ('Add User')}
+                        </button>
+                        <div className="spacer">{this.props.addUserFailure && (<p className="err">{this.props.addUserFailure}</p>)}</div>
+                        <div className="spacer">{this.props.userAdded && (<p className="success">New user added successfully!</p>)}</div>
+                        <p>Back to <Link to="/">Login</Link></p>
+                    </div>
                 </RegisterForm>
             </RegisterPage>
         )
